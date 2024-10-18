@@ -1,0 +1,79 @@
+name: "PR commit summary"
+description: "Github action that summarizes the PR commits and posts it to notion, slack, github comment, ..."
+inputs:
+  ghToken:
+    description: "Github token"
+    required: true
+  openAiKey:
+    description: "Open AI API key"
+    required: false
+  claudeKey:
+    description: "Claude API key"
+    required: false
+  linearKey:
+    description: "Linear API key"
+    required: false
+  notionKey:
+    description: "Notion API key"
+    required: false
+  prompt:
+    description: "Summary prompt"
+    required: false
+    default: "Provide a detailed summary of the following commit messages in markdown format:"
+  comment:
+    description: "Should post a comment to the PR"
+    required: false
+    default: "true"
+
+branding:
+  icon: box
+  color: red
+
+runs:
+  using: "composite"
+  steps:
+    - name: 🏷️ Get version
+      id: version
+      uses: martinbeentjes/npm-get-version-action@v1.3.1
+      with:
+        path: packages/apps/web-app
+
+    - name: 📄 Get PR commit messages
+      shell: bash
+      run: |
+        git log origin/${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.sha }} --pretty=format:"%s" > commit_messages.txt
+
+    - name: 💿 Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10" # install the python version needed
+
+    - name: 🦺 Install python packages
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: 🤖 Run
+      id: summary
+      run: |
+        export COMMITS=$(cat commit_messages.txt)
+        python src/main.py
+      shell: bash
+      env:
+        OPENAI_KEY: ${{ inputs.openAiKey }}
+        CLAUDE_KEY: ${{ inputs.claudeKey }}
+        NOTION_KEY: ${{ inputs.notionKey }}
+        LINEAR_KEY: ${{ inputs.linearKey }}
+        PROMPT: ${{ inputs.prompt }}
+
+    - name: 💬 Post summary comment
+      if: steps.summary.outcome == 'success' & inputs.comment == 'true'
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        GITHUB_TOKEN: ${{ inputs.ghToken }}
+        number: ${{ github.event.pull_request.number }}
+        header: "Release Summary"
+        message: |
+          # Release Summary  
+          ${{ env.summary }}

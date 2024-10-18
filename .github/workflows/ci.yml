@@ -1,0 +1,32 @@
+name: ci
+
+on:
+  pull_request:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Running ci
+    if: "github.event.pull_request.draft != true"
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+
+    steps:
+      - name: 🛒 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📄 PR summary
+        id: summary
+        uses: ./
+        with:
+          #openAiKey: ${{ secrets.OPENAI_KEY }}
+          claudeKey: ${{ secrets.CLAUDE_KEY }}
+          notionKey: ${{ secrets.NOTION_KEY }}
+          comment: "true"
+          prompt: "Provide a set of Release Notes in Markdown format based on the following list of tasks that have been exported from Linear. These notes are for customers, so exclude anything technical or reference to internal or backend fixes / features. Make reference to high level features rather than specifics. Keep your notes fairly high level. Also exclude any ticket IDS."
+
+      - name: 🖨️ Print summar
+        run: echo ${{ steps.summary.outputs.summary }}
