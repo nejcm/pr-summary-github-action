@@ -25,6 +25,8 @@ jobs:
           #openAiKey: ${{ secrets.OPENAI_KEY }}
           claudeKey: ${{ secrets.CLAUDE_KEY }}
           notionKey: ${{ secrets.NOTION_KEY }}
+          linearKey: ${{ secrets.LINEAR_KEY }}
+          linearViewId: "72c7011b3e8b"
           comment: "true"
           prompt: "Provide a set of Release Notes in Markdown format based on the following list of tasks that have been exported from Linear. These notes are for customers, so exclude anything technical or reference to internal or backend fixes / features. Make reference to high level features rather than specifics. Keep your notes fairly high level. Also exclude any ticket IDS."
 

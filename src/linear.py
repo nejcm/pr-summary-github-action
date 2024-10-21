@@ -68,16 +68,16 @@ query CustomViewIssues($id: String!, $first: Int, $after: String) {
 }
 """
 
-# Set up headers for Linear API
-headers = {
-    'Authorization': LINEAR_KEY,
-    'Content-Type': 'application/json',
-}
-
-def linear(custom_view_id, first=50):
+def linear(custom_view_id, first=50, key = None):
     all_issues = []
     has_next_page = True
     after = None
+    
+    # Set up headers for Linear API
+    headers = {
+      'Authorization': key,
+      'Content-Type': 'application/json',
+    }
 
     while has_next_page:
         variables = {

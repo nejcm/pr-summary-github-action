@@ -1,11 +1,11 @@
 import anthropic
 
-def claude(issues):
+def claude_summary(issues, prompt, key):
     client = anthropic.Anthropic(
-      api_key=CLAUDE_KEY,
+      api_key=key,
     )
-    prompt = f"""
-      {PROMPT}
+    fullPrompt = f"""
+      {prompt}
       {issues}
     """
     message = client.messages.create(
@@ -14,7 +14,7 @@ def claude(issues):
         temperature=0.6,
         # system=system,
         messages=[
-          {"role": "user", "content": prompt}
+          {"role": "user", "content": fullPrompt}
         ]
     )
 

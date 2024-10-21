@@ -5,21 +5,27 @@ inputs:
     description: "Github token"
     required: true
   openAiKey:
-    description: "Open AI API key"
+    description: "Open AI API key.If empty it will be ignored."
     required: false
   claudeKey:
-    description: "Claude API key"
+    description: "Claude API key. If empty it will be ignored."
     required: false
   linearKey:
-    description: "Linear API key"
+    description: "Linear API key. If empty it will be ignored."
+    required: false
+  linearViewId:
+    description: "Linear View Id."
     required: false
   notionKey:
-    description: "Notion API key"
+    description: "Notion API key. If empty it will fallback to PR commit messages."
     required: false
   prompt:
     description: "Summary prompt"
     required: false
     default: "Provide a detailed summary of the following commit messages in markdown format:"
+  changelog:
+    description: "Link to the changelog"
+    required: false
   comment:
     description: "Should post a comment to the PR"
     required: false
@@ -46,7 +52,7 @@ runs:
     - name: 💿 Setup python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.10" # install the python version needed
+        python-version: "3.12" # install the python version needed
 
     - name: 🦺 Install python packages
       shell: bash
@@ -65,6 +71,9 @@ runs:
         CLAUDE_KEY: ${{ inputs.claudeKey }}
         NOTION_KEY: ${{ inputs.notionKey }}
         LINEAR_KEY: ${{ inputs.linearKey }}
+        LINEAR_VIEW_ID: ${{ inputs.linearViewId }}
+        CHANGELOG: ${{ inputs.changelog }}
+        VERSION: ${{ steps.version.outputs.current-version }}
         PROMPT: ${{ inputs.prompt }}
 
     - name: 💬 Post summary comment

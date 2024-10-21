@@ -1,4 +1,3 @@
-import os
 import requests
 import json
 
@@ -10,7 +9,7 @@ def split_into_chunks(text, limit):
     chunks.append(text)
     return chunks
 
-def notion(summary, commit_messages):
+def notion(summary, commit_messages, key, version, changelog):
     # Split commit messages into chunks
     commit_message_chunks = split_into_chunks(commit_messages, 2000)
 
@@ -32,9 +31,6 @@ def notion(summary, commit_messages):
         }
         for chunk in commit_message_chunks
     ]
-
-    notion_api_key = os.getenv('NOTION_API_KEY')
-    current_version = os.getenv('CURRENT_VERSION', 'unknown version')
     
     # Construct data payload
     payload = {
@@ -44,7 +40,7 @@ def notion(summary, commit_messages):
                 "type": "title",
                 "title": [{
                     "type": "text",
-                    "text": {"content": f"v{current_version}"}
+                    "text": {"content": f"v{version}"}
                 }]
             }
         },
@@ -91,7 +87,7 @@ def notion(summary, commit_messages):
 
     # Set headers for the HTTP request
     headers = {
-        "Authorization": f"Bearer {notion_api_key}",
+        "Authorization": f"Bearer {key}",
         "Content-Type": "application/json",
         "Notion-Version": "2022-06-28"
     }
@@ -108,3 +104,5 @@ def notion(summary, commit_messages):
         print(f"Page created successfully")
     else:
         print(f"Failed to create page: {response.status_code} - {response.text}")
+        
+    return response
