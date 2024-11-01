@@ -23,7 +23,7 @@ jobs:
         uses: ./
         with:
           #openAiKey: ${{ secrets.OPENAI_KEY }}
-          claudeKey: ${{ secrets.CLAUDE_KEY }}
+          anthropicKey: ${{ secrets.ANTHROPIC_KEY }}
           notionKey: ${{ secrets.NOTION_KEY }}
           linearKey: ${{ secrets.LINEAR_KEY }}
           linearViewId: "72c7011b3e8b"

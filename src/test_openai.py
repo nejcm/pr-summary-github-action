@@ -1,34 +1,53 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from openai import OpenAIError
-import openai
+from openai_summary import openai_summary
 
 class TestOpenAISummary(unittest.TestCase):
-
-    @patch('openai.OpenAI')
-    def test_openai_summary_success(self, mock_openai):
-        mock_client = MagicMock()
-        mock_client.chat.completions.create.return_value = {
-            'choices': [{'message': {'content': 'Generated summary'}}]
+    @patch('openai_summary.OpenAI')
+    def test_openai_success(self, mock_openai):
+        # Mock response from OpenAI
+        mock_response = MagicMock()
+        mock_response.chat.completions.create.return_value = {
+            'choices': [
+                {'message': {'content': 'This is a summary of the commit messages.'}}
+            ]
         }
-        mock_openai.return_value = mock_client
+        mock_openai.return_value = mock_response
+        
+        key = 'FAKE_API_KEY'
+        prompt_message = "Please summarize these commit messages:"
+        commit_messages = "Initial commit\nAdded feature X"
+        
+        summary = openai_summary(prompt_message, commit_messages, key)
+        self.assertEqual(summary, 'This is a summary of the commit messages.')
 
-        summary = openai.openai_summary(
-            prompt_message="Generate a summary for:",
-            commit_messages="Here are commit messages.",
-            key="fake_openai_api_key"
-        )
+    def test_openai_summary_empty_commit_messages(self):
+        key = 'FAKE_API_KEY'
+        prompt_message = "Please summarize these commit messages:"
+        commit_messages = ""
+        
+        with self.assertRaises(ValueError) as context:
+            openai_summary(prompt_message, commit_messages, key)
+        self.assertEqual(str(context.exception), "Commit messages are empty!")
 
-        self.assertEqual(summary, "Generated summary")
-
-    @patch('openai.OpenAI')
-    def test_openai_summary_empty_commit_messages(self, mock_openai):
-        with self.assertRaises(ValueError):
-            openai.openai_summary(
-                prompt_message="Test prompt",
-                commit_messages="",
-                key="fake_openai_api_key"
-            )
+    @patch('openai_summary.OpenAI')
+    def test_openai_null_summary(self, mock_openai):
+        # Mock response from OpenAI with an empty summary
+        mock_response = MagicMock()
+        mock_response.chat.completions.create.return_value = {
+            'choices': [
+                {'message': {'content': ''}}
+            ]
+        }
+        mock_openai.return_value = mock_response
+        
+        key = 'FAKE_API_KEY'
+        prompt_message = "Please summarize these commit messages:"
+        commit_messages = "Fix bug in user login"
+        
+        with self.assertRaises(ValueError) as context:
+            openai_summary(prompt_message, commit_messages, key)
+        self.assertEqual(str(context.exception), "Summary is null or empty.")
 
 if __name__ == '__main__':
     unittest.main()

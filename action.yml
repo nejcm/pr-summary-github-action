@@ -7,8 +7,8 @@ inputs:
   openAiKey:
     description: "Open AI API key.If empty it will be ignored."
     required: false
-  claudeKey:
-    description: "Claude API key. If empty it will be ignored."
+  anthropicKey:
+    description: "Anthropic API key. If empty it will be ignored."
     required: false
   linearKey:
     description: "Linear API key. If empty it will be ignored."
@@ -68,7 +68,7 @@ runs:
       shell: bash
       env:
         OPENAI_KEY: ${{ inputs.openAiKey }}
-        CLAUDE_KEY: ${{ inputs.claudeKey }}
+        ANTHROPIC_KEY: ${{ inputs.anthropicKey }}
         NOTION_KEY: ${{ inputs.notionKey }}
         LINEAR_KEY: ${{ inputs.linearKey }}
         LINEAR_VIEW_ID: ${{ inputs.linearViewId }}
