@@ -36,22 +36,7 @@ def main():
             release_notes = claude_summary(issues, PROMPT, ANTHROPIC_KEY)
         elif(not is_empty(OPENAI_KEY) and not is_empty(OPENAI_ORG)):
             release_notes = openai_summary(issues, PROMPT, OPENAI_KEY, OPENAI_ORG)
-            
-        release_notes = """# Release Notes 123
-  
-  ## New Features
-  
-  - **Release Summary**: We've introduced a new feature that provides a comprehensive summary of each release, making it easier for you to stay informed about the latest updates and improvements.
-  
-  - **Release Action**: We've enhanced our release process with a new action feature, streamlining the deployment and management of updates.
-  
-  - **Python Code Conversion**: We're in the process of converting parts of our system to Python, which will improve performance and maintainability. This is a work in progress and will be rolled out in phases.
-  
-  ## Improvements
-  
-  - **Testing Enhancements**: We've added new tests to ensure the reliability and stability of our system, providing you with a more robust experience.
-  
-  We hope you enjoy the new features and improvements in this release. As always, we welcome your feedback to help us continue to enhance our product."""
+        
         if(not is_empty(NOTION_KEY) and not is_empty(release_notes)):
             notion(release_notes, issues, NOTION_KEY, NOTION_DB_ID, VERSION, CHANGELOG)
 

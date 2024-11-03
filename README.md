@@ -44,14 +44,11 @@ jobs:
           comment: "true"
           prompt: "Provide a set of Release Notes in Markdown format based on the following list of tasks that have been exported from Linear. These notes are for customers, so exclude anything technical or reference to internal or backend fixes / features. Make reference to high level features rather than specifics. Keep your notes fairly high level."
 
-      - name: 🖨️ Print summary
-        run: echo ${{ steps.summary.outputs.summary }}
-
       - name: 💬 Post summary comment
         if: steps.summary.outcome == 'success' && steps.summary.outputs.summary != ''
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           number: ${{ github.event.pull_request.number }}
           header: "Release Summary"
           message: |

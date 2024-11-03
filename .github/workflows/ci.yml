@@ -39,9 +39,6 @@ jobs:
           ghToken: ${{ secrets.GITHUB_TOKEN }}
           prompt: "Provide a set of Release Notes in Markdown format based on the following list commit messages: "
 
-      - name: 🖨️ Print summary
-        run: echo "${{ steps.summary.outputs.summary }}"
-
       - name: 💬 Post summary comment
         if: steps.summary.outcome == 'success' && steps.summary.outputs.summary != ''
         uses: marocchino/sticky-pull-request-comment@v2
