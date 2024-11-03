@@ -57,11 +57,10 @@ def main():
 
         # Format the release_notes for multiline output
         if release_notes:
-            print(f'::set-output name=summary::{release_notes}')
-            #with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
-            #    fh.write('summary<<EOF\n')
-            #    fh.write(release_notes)
-            #    fh.write('\nEOF\n')
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                fh.write('summary<<EOF\n')
+                fh.write(release_notes)
+                fh.write('\nEOF\n')
                 
         return release_notes
     

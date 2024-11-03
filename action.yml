@@ -60,7 +60,7 @@ runs:
         pip install -r requirements.txt
 
     - name: 🤖 Run
-      id: release_summary
+      id: summary
       run: |
         export COMMITS=$(cat commit_messages.txt)
         python src/main.py
@@ -78,19 +78,5 @@ runs:
         PROMPT: ${{ inputs.prompt }}
 
     - name: 🖨️ Print result
-      shell: bash
-      run: echo ${{ steps.release_summary.outputs.summary }}
-
-    - name: 💾 Save summary
-      shell: bash
-      id: summary
-      run: |
-        {
-          echo "summary<<EOF"
-          echo "${{ steps.release_summary.outputs.summary }}"
-          echo "EOF"
-        } >> $GITHUB_OUTPUT
-
-    - name: 🖨️ Print result 2
       shell: bash
       run: echo ${{ steps.summary.outputs.summary }}
