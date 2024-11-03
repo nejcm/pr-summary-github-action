@@ -80,4 +80,6 @@ runs:
     - name: 🖨️ Print summary
       shell: bash
       run: |
-        echo "{summary}=${{ steps.summary.outputs.summary }}" >> $GITHUB_OUTPUT
+        echo "summary<<EOT" >> $GITHUB_OUTPUT
+        echo "${{ steps.summary.outputs.summary }}" >> $GITHUB_OUTPUT
+        echo "EOT" >> $GITHUB_OUTPUT
