@@ -60,7 +60,7 @@ runs:
         pip install -r requirements.txt
 
     - name: 🤖 Run
-      id: summary
+      id: release_summary
       run: |
         export COMMITS=$(cat commit_messages.txt)
         python src/main.py
@@ -79,7 +79,8 @@ runs:
 
     - name: 💾 Save summary
       shell: bash
+      id: summary
       run: |
         echo "summary<<EOT" >> $GITHUB_OUTPUT
-        echo "${{ steps.summary.outputs.summary }}" >> $GITHUB_OUTPUT
+        echo "${{ steps.release_summary.outputs.summary }}" >> $GITHUB_OUTPUT
         echo "EOT" >> $GITHUB_OUTPUT
