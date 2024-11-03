@@ -84,3 +84,6 @@ runs:
         echo "summary<<EOF" >> $GITHUB_OUTPUT
         echo "${{ steps.release_summary.outputs.summary }}" >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: 🖨️ Print result
+      run: echo ${{ steps.summary.outputs.summary }}
