@@ -40,7 +40,8 @@ def main():
         if(not is_empty(NOTION_KEY) and not is_empty(release_notes)):
             notion(release_notes, issues, NOTION_KEY, NOTION_DB_ID, VERSION, CHANGELOG)
 
-        print(f'::set-output name=summary::{release_notes}')
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as env_file:
+            env_file.write(f'summary={release_notes}\n')
         return release_notes
     
     return None
