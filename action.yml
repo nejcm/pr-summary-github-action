@@ -1,5 +1,5 @@
 name: "PR commit summary"
-description: "Github action that summarizes the PR commits and posts it to notion, slack, github comment, ..."
+description: "Github action that summarizes the PR commits and posts it to notion."
 inputs:
   ghToken:
     description: "Github token"
@@ -32,10 +32,6 @@ inputs:
   changelog:
     description: "Link to the changelog"
     required: false
-  comment:
-    description: "Should post a comment to the PR"
-    required: false
-    default: "true"
   version:
     description: "Release version"
     required: false
@@ -80,13 +76,3 @@ runs:
         CHANGELOG: ${{ inputs.changelog }}
         VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
-
-    - name: 💬 Post summary comment
-      if: steps.summary.outcome == 'success' && inputs.comment == 'true' && steps.summary.outputs.summary != ''
-      uses: marocchino/sticky-pull-request-comment@v2
-      with:
-        GITHUB_TOKEN: ${{ inputs.ghToken }}
-        number: ${{ github.event.pull_request.number }}
-        header: "Release Summary"
-        message: |
-          ${{ steps.summary.outputs.summary }}

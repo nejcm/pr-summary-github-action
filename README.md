@@ -46,4 +46,14 @@ jobs:
 
       - name: 🖨️ Print summary
         run: echo ${{ steps.summary.outputs.summary }}
+
+      - name: 💬 Post summary comment
+        if: steps.summary.outcome == 'success' && steps.summary.outputs.summary != ''
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: "Release Summary"
+          message: |
+            ${{ steps.summary.outputs.summary }}
 ```
