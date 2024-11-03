@@ -36,6 +36,9 @@ inputs:
     description: "Should post a comment to the PR"
     required: false
     default: "true"
+  version:
+    description: "Release version"
+    required: false
 
 branding:
   icon: box
@@ -44,10 +47,6 @@ branding:
 runs:
   using: "composite"
   steps:
-    - name: 🏷️ Get version
-      id: version
-      uses: martinbeentjes/npm-get-version-action@v1.3.1
-
     - name: 📄 Get PR commit messages
       shell: bash
       run: |
@@ -79,7 +78,7 @@ runs:
         LINEAR_VIEW_ID: ${{ inputs.linearViewId }}
         NOTION_DB_ID: ${{ inputs.notionDbId }}
         CHANGELOG: ${{ inputs.changelog }}
-        VERSION: ${{ steps.version.outputs.current-version }}
+        VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
 
     - name: 💬 Post summary comment
