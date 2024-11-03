@@ -40,7 +40,7 @@ jobs:
           prompt: "Provide a set of Release Notes in Markdown format based on the following list commit messages: "
 
       - name: 🖨️ Print summary
-        run: echo ${{ steps.summary.outputs }}
+        run: echo ${{ toJson(steps.summary.outputs) }}
 
       - name: 💬 Post summary comment
         if: steps.summary.outcome == 'success' && steps.summary.outputs.summary != ''
