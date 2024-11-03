@@ -1,0 +1,6 @@
+dist/
+lib/
+reports/
+node_modules/
+jest.config.js
+.eslintrc

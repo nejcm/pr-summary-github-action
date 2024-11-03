@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Running ci
+    if: "github.event.pull_request.draft != true"
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+
+    steps:
+      - name: 🛒 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🏷️ Get version
+        id: version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+      - name: 📄 PR summary
+        id: summary
+        uses: ./
+        with:
+          #openAiKey: ${{ secrets.OPENAI_KEY }}
+          #openAiOrg: ${{ secrets.OPENAI_ORG }}
+          #anthropicKey: ${{ secrets.ANTHROPIC_KEY }}
+          #notionKey: ${{ secrets.NOTION_KEY }}
+          #notionDbId: ${{ secrets.NOTION_DB_ID }}
+          #linearKey: ${{ secrets.LINEAR_KEY }}
+          #linearViewId: ${{ secrets.LINEAR_VIEW_ID }}
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
+          prompt: "Provide a set of Release Notes in Markdown format based on the following list commit messages: "
+
+      - name: 💬 Post summary comment
+        if: steps.summary.outcome == 'success' && steps.summary.outputs.summary != ''
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: "Release Summary"
+          message: |
+            ${{ steps.summary.outputs.summary }}
