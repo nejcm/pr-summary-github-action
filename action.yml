@@ -77,16 +77,20 @@ runs:
         VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
 
+    - name: 🖨️ Print result
+      shell: bash
+      run: echo ${{ steps.release_summary.outputs.summary }}
+
     - name: 💾 Save summary
       shell: bash
       id: summary
       run: |
         {
-          echo "summary<<EOF";
-          echo "${{ steps.release_summary.outputs.summary }}";
-          echo "EOF";
+          echo "summary<<EOF"
+          echo "${{ steps.release_summary.outputs.summary }}"
+          echo "EOF"
         } >> $GITHUB_OUTPUT
 
-    - name: 🖨️ Print result
+    - name: 🖨️ Print result 2
       shell: bash
       run: echo ${{ steps.summary.outputs.summary }}
