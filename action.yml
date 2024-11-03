@@ -77,7 +77,7 @@ runs:
         VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
 
-    - name: 🖨️ Print summary
+    - name: 💾 Save summary
       shell: bash
       run: |
         echo "summary<<EOT" >> $GITHUB_OUTPUT
