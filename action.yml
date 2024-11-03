@@ -81,9 +81,11 @@ runs:
       shell: bash
       id: summary
       run: |
-        echo "summary<<EOF" >> $GITHUB_OUTPUT
-        echo "${{ steps.release_summary.outputs.summary }}" >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
+        {
+          echo "summary<<EOF";
+          echo "${{ steps.release_summary.outputs.summary }}";
+          echo "EOF";
+        } >> $GITHUB_OUTPUT
 
     - name: 🖨️ Print result
       shell: bash
