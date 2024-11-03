@@ -55,6 +55,7 @@ jobs:
         id: summary
         uses: nejcm/pr-summary-github-action@v1.0.0
         with:
+          ghToken: ${{ secrets.GH_TOKEN }}
           anthropicKey: ${{ secrets.ANTHROPIC_KEY }}
           notionKey: ${{ secrets.NOTION_KEY }}
           notionDbId: ${{ secrets.NOTION_DB_ID }}
