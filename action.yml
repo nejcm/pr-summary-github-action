@@ -78,4 +78,5 @@ runs:
         PROMPT: ${{ inputs.prompt }}
 
     - name: 🖨️ Print summary
+      shell: bash
       run: echo ${{ steps.summary.outputs.summary }}
