@@ -46,6 +46,8 @@ def main():
                 env_file.write('summary<<EOF\n')
                 env_file.write(release_notes)
                 env_file.write('\nEOF\n')
+                
+        print(release_notes)
         return release_notes
     
     return None
