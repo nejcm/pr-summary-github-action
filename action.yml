@@ -76,7 +76,3 @@ runs:
         CHANGELOG: ${{ inputs.changelog }}
         VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
-
-    - name: 🖨️ Print result
-      shell: bash
-      run: echo ${{ steps.summary.outputs.summary }}
