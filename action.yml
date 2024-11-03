@@ -35,6 +35,10 @@ inputs:
   version:
     description: "Release version"
     required: false
+outputs:
+  summary:
+    description: "Release summary"
+    value: ${{ steps.summary.outputs.summary }}
 
 branding:
   icon: box
@@ -77,6 +81,6 @@ runs:
         VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
 
-    - name: 🖨️ Print result
+    - name: 🖨️ Print summary
       shell: bash
       run: echo "${{ steps.summary.outputs.summary }}"

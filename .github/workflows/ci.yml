@@ -31,16 +31,16 @@ jobs:
         with:
           #openAiKey: ${{ secrets.OPENAI_KEY }}
           #openAiOrg: ${{ secrets.OPENAI_ORG }}
-          # anthropicKey: ${{ secrets.ANTHROPIC_KEY }}
+          #anthropicKey: ${{ secrets.ANTHROPIC_KEY }}
           #notionKey: ${{ secrets.NOTION_KEY }}
           #notionDbId: ${{ secrets.NOTION_DB_ID }}
-          # linearKey: ${{ secrets.LINEAR_KEY }}
-          # linearViewId: ${{ secrets.LINEAR_VIEW_ID }}
+          #linearKey: ${{ secrets.LINEAR_KEY }}
+          #linearViewId: ${{ secrets.LINEAR_VIEW_ID }}
           ghToken: ${{ secrets.GITHUB_TOKEN }}
           prompt: "Provide a set of Release Notes in Markdown format based on the following list commit messages: "
 
       - name: 🖨️ Print summary
-        run: echo ${{ toJson(steps.summary.outputs) }}
+        run: echo ${{ steps.summary.outputs.summary }}
 
       - name: 💬 Post summary comment
         if: steps.summary.outcome == 'success' && steps.summary.outputs.summary != ''
