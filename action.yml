@@ -85,12 +85,11 @@ runs:
         PROMPT: ${{ inputs.prompt }}
 
     - name: 💬 Post summary comment
-      if: steps.summary.outcome == 'success' & inputs.comment == 'true'
+      if: steps.summary.outcome == 'success' && inputs.comment == 'true' && steps.summary.outputs.summary != ''
       uses: marocchino/sticky-pull-request-comment@v2
       with:
         GITHUB_TOKEN: ${{ inputs.ghToken }}
         number: ${{ github.event.pull_request.number }}
         header: "Release Summary"
         message: |
-          # Release Summary  
-          ${{ env.summary }}
+          ${{ steps.summary.outputs.summary }}
