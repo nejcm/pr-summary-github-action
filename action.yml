@@ -7,6 +7,9 @@ inputs:
   openAiKey:
     description: "Open AI API key.If empty it will be ignored."
     required: false
+  openAiOrg:
+    description: "Open AI org id."
+    required: false
   anthropicKey:
     description: "Anthropic API key. If empty it will be ignored."
     required: false
@@ -17,7 +20,10 @@ inputs:
     description: "Linear View Id."
     required: false
   notionKey:
-    description: "Notion API key. If empty it will fallback to PR commit messages."
+    description: "Notion API key."
+    required: false
+  notionDbId:
+    description: "Notion Database ID."
     required: false
   prompt:
     description: "Summary prompt"
@@ -68,10 +74,12 @@ runs:
       shell: bash
       env:
         OPENAI_KEY: ${{ inputs.openAiKey }}
+        OPENAI_ORG: ${{ inputs.openAiOrg }}
         ANTHROPIC_KEY: ${{ inputs.anthropicKey }}
         NOTION_KEY: ${{ inputs.notionKey }}
         LINEAR_KEY: ${{ inputs.linearKey }}
         LINEAR_VIEW_ID: ${{ inputs.linearViewId }}
+        NOTION_DB_ID: ${{ inputs.notionDbId }}
         CHANGELOG: ${{ inputs.changelog }}
         VERSION: ${{ steps.version.outputs.current-version }}
         PROMPT: ${{ inputs.prompt }}

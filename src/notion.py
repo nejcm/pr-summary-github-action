@@ -1,89 +1,98 @@
 import requests
 import json
+from notion_parse import markdown_to_notion_blocks, split_lines, EMPTY_BLOCK
 
-def split_into_chunks(text, limit):
-    chunks = []
-    while len(text) > limit:
-        chunks.append(text[:limit])
-        text = text[limit:]
-    chunks.append(text)
-    return chunks
 
-def notion(summary, commit_messages, key, version, changelog):
+def notion(summary, commit_messages, key, db_id, version, changelog):
+    # Transform markdown summary to Notion blocks
+    summary_blocks = markdown_to_notion_blocks(summary)
+    
     # Split commit messages into chunks
-    commit_message_chunks = split_into_chunks(commit_messages, 2000)
+    commit_message_lines = split_lines(commit_messages)
 
-    # Create children blocks for commit messages
+    # Create children blocks for commit messages as list items
     commit_blocks = [
         {
             "object": "block",
-            "type": "paragraph",
-            "paragraph": {
+            "type": "bulleted_list_item",
+            "bulleted_list_item": {
                 "rich_text": [
                     {
                         "type": "text",
                         "text": {
-                            "content": chunk
+                            "content": line
                         }
                     }
                 ]
             }
         }
-        for chunk in commit_message_chunks
+        for line in commit_message_lines if line.strip()  # Ignore empty lines
     ]
     
     # Construct data payload
     payload = {
-        "parent": {"database_id": "cd227b78703e499d81b902b402fcc128"},
+        "parent": {"database_id": db_id},
         "properties": {
             "Title": {
                 "type": "title",
                 "title": [{
                     "type": "text",
-                    "text": {"content": f"v{version}"}
+                    "text": {"content": version or 'Release summary'}
                 }]
             }
         },
-        "children": [
-            {
-                "object": "block",
-                "type": "heading_1",
-                "heading_1": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": "Summary"}
-                        }
-                    ]
-                }
-            },
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": summary}
-                        }
-                    ]
-                }
-            },
-            {
-                "object": "block",
-                "type": "heading_1",
-                "heading_1": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": "Commits"}
-                        }
-                    ]
-                }
-            },
-            *commit_blocks
-        ]
+        "children": summary_blocks + [EMPTY_BLOCK]
     }
+    
+    # Add changelog paragraph if changelog exists
+    if changelog:
+        payload["children"].append({
+            "object": "block",
+            "type": "callout",
+            "callout": {
+                "icon": {
+                    "type": "emoji",
+                    "emoji": "🔗"
+                },
+                "rich_text": [
+                    {
+                        "type": "text",
+                        "text": {
+                            "content": "CHANGELOG: ",
+                        }
+                    },
+                    {
+                        "type": "text",
+                        "text": {
+                            "content": changelog,
+                            "link": {"url": changelog}
+                        }
+                    }
+                ]
+            }
+        })
+        
+    # Add the "Commits" heading and commit blocks
+    payload["children"].extend([
+        EMPTY_BLOCK,
+        {
+            "object": "block",
+            "type": "toggle",
+            "toggle": {
+                "rich_text": [
+                    {
+                        "type": "text",
+                        "text": {"content": "Commits"},
+                        "annotations": {
+                            "bold": True,
+                            "underline": True
+                        }
+                    }
+                ],
+                "children": commit_blocks
+            }
+        },
+    ])
 
     # Set headers for the HTTP request
     headers = {

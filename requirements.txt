@@ -2,3 +2,5 @@ requests==2.32.3
 anthropic==0.36.2
 openai==1.52.0
 pytest==8.3.3
+nltk==3.9.1
+markdown-it-py==3.0.0
