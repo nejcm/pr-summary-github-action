@@ -60,7 +60,6 @@ jobs:
           notionDbId: ${{ secrets.NOTION_DB_ID }}
           linearKey: ${{ secrets.LINEAR_KEY }}
           linearViewId: ${{ secrets.LINEAR_VIEW_ID }}
-          comment: "true"
           prompt: "Provide a set of Release Notes in Markdown format based on the following list of tasks that have been exported from Linear. These notes are for customers, so exclude anything technical or reference to internal or backend fixes / features. Make reference to high level features rather than specifics. Keep your notes fairly high level."
 
       - name: 💬 Post summary comment
