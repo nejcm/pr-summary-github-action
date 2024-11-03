@@ -1,7 +1,24 @@
 # pr-summary-github-action
 
-Github action that summarizes the PR commits and posts it to notion, slack,
-github comment, ...
+This GitHub Action summarizes commit messages from a pull request (PR) and posts the summary to Notion. It can be configured to integrate with other services such as OpenAI, Anthropic, and Linear for enhanced processing and output management.
+
+## Inputs
+
+- **`ghToken`** (required): GitHub token for authentication.
+- **`openAiKey`** (optional): OpenAI API key. Ignored if empty.
+- **`openAiOrg`** (optional): OpenAI organization ID.
+- **`anthropicKey`** (optional): Anthropic API key. Ignored if empty.
+- **`linearKey`** (optional): Linear API key. Ignored if empty.
+- **`linearViewId`** (optional): Linear view ID.
+- **`notionKey`** (optional): Notion API key.
+- **`notionDbId`** (optional): Notion database ID.
+- **`prompt`** (optional): Prompt to use for summarizing commits. Default: "Provide a detailed summary of the following commit messages in markdown format."
+- **`changelog`** (optional): Link to the changelog.
+- **`version`** (optional): Release version.
+
+## Outputs
+
+- **`summary`**: The resulting release summary.
 
 > **! IMPORTANT**  
 > When checking out the code, make sure to use the `fetch-depth: 0` option. [Read more](https://github.com/actions/checkout?tab=readme-ov-file#fetch-all-history-for-all-tags-and-branches)
@@ -10,6 +27,8 @@ github comment, ...
 > [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 
 ## Example usage
+
+Here's an example of how to use this action within a GitHub workflow:
 
 ```yaml
 name: ci
