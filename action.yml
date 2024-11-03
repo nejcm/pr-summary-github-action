@@ -86,4 +86,5 @@ runs:
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: 🖨️ Print result
+      shell: bash
       run: echo ${{ steps.summary.outputs.summary }}
