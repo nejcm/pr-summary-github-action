@@ -80,5 +80,4 @@ runs:
     - name: 🖨️ Print summary
       shell: bash
       run: |
-        echo ${{ steps.summary.outputs.summary }}
         echo "{summary}=${{ steps.summary.outputs.summary }}" >> $GITHUB_OUTPUT
