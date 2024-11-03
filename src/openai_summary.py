@@ -1,4 +1,3 @@
-import os
 from openai import OpenAI
 
 def openai_summary(issues, prompt, key, org):

@@ -37,7 +37,7 @@ def main():
         elif(not is_empty(OPENAI_KEY) and not is_empty(OPENAI_ORG)):
             release_notes = openai_summary(issues, PROMPT, OPENAI_KEY, OPENAI_ORG)
             
-        release_notes = """# Release Notes
+        release_notes = """# Release Notes 123
   
   ## New Features
   
@@ -57,10 +57,11 @@ def main():
 
         # Format the release_notes for multiline output
         if release_notes:
-            with open(os.environ['GITHUB_OUTPUT'], 'a') as env_file:
-                env_file.write('summary<<EOF\n')
-                env_file.write(release_notes)
-                env_file.write('\nEOF\n')
+            print('Output')
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                fh.write('summary<<EOF\n')
+                fh.write(release_notes)
+                fh.write('\nEOF\n')
                 
         return release_notes
     
