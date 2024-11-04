@@ -50,6 +50,14 @@ runs:
     - name: 📄 Get PR commit messages
       shell: bash
       run: |
+        BASE_REF="${{ github.event.pull_request.base.ref }}"
+        HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+        if git show-ref --verify --quiet "refs/remotes/origin/$BASE_REF"; then
+          git log origin/$BASE_REF..$HEAD_SHA --pretty=format:"%s" > commit_messages.txt
+        else
+          echo "Base reference or head SHA does not exist."
+          exit 1
+        fi
         git log origin/${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.sha }} --pretty=format:"%s" > commit_messages.txt
 
     - name: 💿 Setup python
@@ -66,7 +74,11 @@ runs:
     - name: 🤖 Run
       id: summary
       run: |
-        export COMMITS=$(cat commit_messages.txt)
+        if [ -f commit_messages.txt ]; then
+          export COMMITS=$(cat commit_messages.txt)
+        else
+          echo "commit_messages.txt file does not exist."
+        fi
         python src/main.py
       shell: bash
       env:
