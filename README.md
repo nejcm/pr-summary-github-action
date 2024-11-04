@@ -20,23 +20,26 @@ This GitHub Action summarizes commit messages from a pull request (PR) and posts
 
 - **`summary`**: The resulting release summary.
 
-> **! IMPORTANT**  
-> When checking out the code, make sure to use the `fetch-depth: 0` option. [Read more](https://github.com/actions/checkout?tab=readme-ov-file#fetch-all-history-for-all-tags-and-branches)
-
-> To post to notion database please allow you API integration access to the database.
-> [Read more](https://developers.notion.com/docs/create-a-notion-integration)
+> **! IMPORTANT**
+>
+> - This action works only with pull requests.
+> - When checking out the code, make sure to use the `fetch-depth: 0` option. [Read more](https://github.com/actions/checkout?tab=readme-ov-file#fetch-all-history-for-all-tags-and-branches)
+> - To post to notion database please allow you API integration access to the database.
+>   [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 
 ## Example usage
 
 Here's an example of how to use this action within a GitHub workflow:
 
 ```yaml
-name: ci
+name: release
 
+name: Release Production
 on:
   pull_request:
-    branches:
-      - develop
+    branches: [main]
+    types:
+      - opened
   workflow_dispatch:
 
 jobs:
