@@ -8,7 +8,7 @@ def notion(summary, commit_messages, key, db_id, version, changelog):
     summary_blocks = markdown_to_notion_blocks(summary)
     
     # Split commit messages into chunks
-    commit_message_lines = split_lines(commit_messages)
+    commit_message_lines = split_lines(commit_messages or '')
 
     # Create children blocks for commit messages as list items
     commit_blocks = [

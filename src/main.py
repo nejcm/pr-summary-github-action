@@ -38,7 +38,7 @@ def main():
             release_notes = openai_summary(issues, PROMPT, OPENAI_KEY, OPENAI_ORG)
         
         if(not is_empty(NOTION_KEY) and not is_empty(release_notes)):
-            notion(release_notes, issues, NOTION_KEY, NOTION_DB_ID, VERSION, CHANGELOG)
+            notion(release_notes, COMMITS, NOTION_KEY, NOTION_DB_ID, VERSION, CHANGELOG)
 
         # Format the release_notes for multiline output
         if release_notes:
