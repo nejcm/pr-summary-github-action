@@ -70,12 +70,7 @@ runs:
       shell: bash
       run: |
         python -m pip install --upgrade pip
-        if [ -f "${{ github.action_path }}/requirements.txt" ]; then
-          pip install -r ${{ github.action_path }}/requirements.txt
-        else
-          echo "requirements.txt not found, installing dependencies directly"
-          pip install requests openai anthropic nltk markdown-it-py
-        fi
+        pip install requests openai anthropic nltk markdown-it-py
 
     - name: 🤖 Run
       id: summary
