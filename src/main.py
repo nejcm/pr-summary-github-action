@@ -26,9 +26,10 @@ def main():
     
     if(not is_empty(LINEAR_KEY)):
         issues = linear(LINEAR_VIEW_ID, 100, LINEAR_KEY)
-    else:
-        # fallback to commits
-        issues = COMMITS
+        
+    # fallback to commits
+    issues = issues or COMMITS
+    print(f"Using issues: {issues}")
 
     if(not is_empty(issues)):
         release_notes = None
