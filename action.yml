@@ -84,7 +84,7 @@ runs:
         else
           echo "commit_messages.txt file does not exist."
         fi
-        python src/main.py
+        python ${{ github.action_path }}/src/main.py
       shell: bash
       env:
         OPENAI_KEY: ${{ inputs.openAiKey }}
