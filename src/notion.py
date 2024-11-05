@@ -110,8 +110,8 @@ def notion(summary, commit_messages, key, db_id, version, changelog):
 
     # Check response
     if response.status_code == 200:
-        print(f"Page created successfully")
+        print(f"Notion page created successfully")
     else:
-        print(f"Failed to create page: {response.status_code} - {response.text}")
+        print(f"Failed to create Notion page: {response.status_code} - {response.text}")
         
     return response
