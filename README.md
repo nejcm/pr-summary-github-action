@@ -77,3 +77,9 @@ jobs:
           message: |
             ${{ steps.summary.outputs.summary }}
 ```
+
+## TODO
+
+- [ ] Allow more customization of the task/issue management tool query parameters for fetching issues
+- [ ] Add support for other task/issue management tools
+- [ ] Add support for other LLM providers
