@@ -2,6 +2,25 @@
 
 This GitHub Action summarizes commit messages from a pull request (PR) and posts the summary to Notion. It can be configured to integrate with other services such as OpenAI, Anthropic, and Linear for enhanced processing and output management.
 
+> **! IMPORTANT**
+>
+> - This action works only with pull requests.
+> - When checking out the code, make sure to use the `fetch-depth: 0` option. Check example below. [Read more](https://github.com/actions/checkout?tab=readme-ov-file#fetch-all-history-for-all-tags-and-branches)
+
+## Linear
+
+When using Linear, you need to create a view from which the tasks will be pulled from.
+In the future we will allow more customization of the task/issue management tool query parameters for fetching issues.
+
+## Notion
+
+> **! IMPORTANT**
+>
+> - To post to notion database please allow you API integration access to the database. [Read more](https://developers.notion.com/docs/create-a-notion-integration)
+> - One of the properties of the database needs to have an ID of `Title`.
+
+![Notion example](notion.png)
+
 ## Inputs
 
 - **`ghToken`** (required): GitHub token for authentication.
@@ -19,13 +38,6 @@ This GitHub Action summarizes commit messages from a pull request (PR) and posts
 ## Outputs
 
 - **`summary`**: The resulting release summary.
-
-> **! IMPORTANT**
->
-> - This action works only with pull requests.
-> - When checking out the code, make sure to use the `fetch-depth: 0` option. [Read more](https://github.com/actions/checkout?tab=readme-ov-file#fetch-all-history-for-all-tags-and-branches)
-> - To post to notion database please allow you API integration access to the database.
->   [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 
 ## Example usage
 
@@ -53,6 +65,8 @@ jobs:
     steps:
       - name: 🛒 Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: 📄 PR summary
         id: summary
