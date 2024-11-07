@@ -33,6 +33,7 @@ In the future we will allow more customization of the task/issue management tool
 - **`notionDbId`** (optional): Notion database ID.
 - **`prompt`** (optional): Prompt to use for summarizing commits. Default: "Provide a detailed summary of the following commit messages in markdown format."
 - **`changelog`** (optional): Link to the changelog.
+- **`prLink`** (optional): Link to the PR.
 - **`version`** (optional): Release version.
 
 ## Outputs
@@ -79,7 +80,10 @@ jobs:
           linearKey: ${{ secrets.LINEAR_KEY }}
           linearViewId: ${{ secrets.LINEAR_VIEW_ID }}
           version: 'v1.0.0'
-          changelog: 'https://link-to-your-changelog.com'
+          changelog:
+            '${{ github.server_url }}/${{ github.repository }}/blob/${{ github.head_ref }}/CHANGELOG.md'
+          prLink:
+            '${{ github.server_url }}/${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
           prompt: "Provide a set of Release Notes in Markdown format based on the following list of tasks that have been exported from Linear: "
 
       - name: 💬 Post summary comment

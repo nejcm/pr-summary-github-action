@@ -30,7 +30,10 @@ inputs:
     required: false
     default: "Provide a detailed summary of the following commit messages in markdown format:"
   changelog:
-    description: "Link to the changelog"
+    description: "Link to the changelog. If empty it will be ignored."
+    required: false
+  prLink:
+    description: "Link to the PR. If empty it will be ignored."
     required: false
   version:
     description: "Release version"
@@ -95,6 +98,7 @@ runs:
         LINEAR_VIEW_ID: ${{ inputs.linearViewId }}
         NOTION_DB_ID: ${{ inputs.notionDbId }}
         CHANGELOG: ${{ inputs.changelog }}
+        PR_LINK: ${{ inputs.prLink }}
         VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
 

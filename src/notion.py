@@ -1,9 +1,37 @@
 import requests
 import json
 from notion_parse import markdown_to_notion_blocks, split_lines, EMPTY_BLOCK
+from helpers import is_empty
+
+def calloutBlock(icon, title, text, link):
+    return {
+        "object": "block",
+        "type": "callout",
+        "callout": {
+            "icon": {
+                "type": "emoji",
+                "emoji": icon
+            },
+            "rich_text": [
+                {
+                    "type": "text",
+                    "text": {
+                        "content": title,
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": {
+                        "content": text,
+                        "link": {"url": link}
+                    }
+                }
+            ]
+        }
+    }
 
 
-def notion(summary, commit_messages, key, db_id, version, changelog):
+def notion(summary, commit_messages, key, db_id, version, changelog, prLink):
     # Transform markdown summary to Notion blocks
     summary_blocks = markdown_to_notion_blocks(summary)
     
@@ -45,36 +73,14 @@ def notion(summary, commit_messages, key, db_id, version, changelog):
     }
     
     # Add changelog paragraph if changelog exists
-    if changelog:
-        payload["children"].append({
-            "object": "block",
-            "type": "callout",
-            "callout": {
-                "icon": {
-                    "type": "emoji",
-                    "emoji": "🔗"
-                },
-                "rich_text": [
-                    {
-                        "type": "text",
-                        "text": {
-                            "content": "CHANGELOG: ",
-                        }
-                    },
-                    {
-                        "type": "text",
-                        "text": {
-                            "content": changelog,
-                            "link": {"url": changelog}
-                        }
-                    }
-                ]
-            }
-        })
+    if not is_empty(changelog):
+        payload["children"].append(calloutBlock("🔗", "CHANGELOG: ", changelog, changelog))
+        
+    if not is_empty(prLink):
+        payload["children"].append(calloutBlock("📄", "Pull request: ", prLink, prLink))
         
     # Add the "Commits" heading and commit blocks
     payload["children"].extend([
-        EMPTY_BLOCK,
         {
             "object": "block",
             "type": "toggle",
