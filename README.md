@@ -19,7 +19,7 @@ In the future we will allow more customization of the task/issue management tool
 > - To post to notion database please allow you API integration access to the database. [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 > - One of the properties of the database needs to have an ID of `Title`.
 
-![Notion example](notion.png)
+![Notion example](notion.jpg)
 
 ## Inputs
 
@@ -79,8 +79,8 @@ jobs:
           linearKey: ${{ secrets.LINEAR_KEY }}
           linearViewId: ${{ secrets.LINEAR_VIEW_ID }}
           version: 'v1.0.0'
-          changelog: 'https://link-to--your-changelog.com'
-          prompt: "Provide a set of Release Notes in Markdown format based on the following list of tasks that have been exported from Linear. These notes are for customers, so exclude anything technical or reference to internal or backend fixes / features. Make reference to high level features rather than specifics. Keep your notes fairly high level."
+          changelog: 'https://link-to-your-changelog.com'
+          prompt: "Provide a set of Release Notes in Markdown format based on the following list of tasks that have been exported from Linear: "
 
       - name: 💬 Post summary comment
         if: steps.summary.outcome == 'success' && steps.summary.outputs.summary != ''
@@ -92,6 +92,10 @@ jobs:
           message: |
             ${{ steps.summary.outputs.summary }}
 ```
+
+## Example output
+
+![Summary](summary.jpg)
 
 ## TODO
 
