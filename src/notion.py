@@ -29,6 +29,40 @@ def calloutBlock(icon, title, text, link):
             ]
         }
     }
+    
+def create_commit_toggle_blocks(commit_blocks, start_idx=0):
+    toggle_blocks = []
+    total_commits = len(commit_blocks)
+    block_size = 100
+    
+    while start_idx < total_commits:
+        current_chunk = commit_blocks[start_idx:start_idx + block_size]
+        part_number = (start_idx // block_size) + 1
+        total_parts = (total_commits + block_size - 1) // block_size
+        
+        toggle_block = {
+            "object": "block",
+            "type": "toggle",
+            "toggle": {
+                "rich_text": [
+                    {
+                        "type": "text",
+                        "text": {
+                            "content": f"Commits {part_number}/{total_parts}"
+                        },
+                        "annotations": {
+                            "bold": True,
+                            "underline": True
+                        }
+                    }
+                ],
+                "children": current_chunk
+            }
+        }
+        toggle_blocks.append(toggle_block)
+        start_idx += block_size
+        
+    return toggle_blocks
 
 
 def notion(summary, commit_messages, key, db_id, version, changelog, prLink):
@@ -80,25 +114,7 @@ def notion(summary, commit_messages, key, db_id, version, changelog, prLink):
         payload["children"].append(calloutBlock("📄", "Pull request: ", prLink, prLink))
         
     # Add the "Commits" heading and commit blocks
-    payload["children"].extend([
-        {
-            "object": "block",
-            "type": "toggle",
-            "toggle": {
-                "rich_text": [
-                    {
-                        "type": "text",
-                        "text": {"content": "Commits"},
-                        "annotations": {
-                            "bold": True,
-                            "underline": True
-                        }
-                    }
-                ],
-                "children": commit_blocks
-            }
-        },
-    ])
+    payload["children"].extend(create_commit_toggle_blocks(commit_blocks))
 
     # Set headers for the HTTP request
     headers = {
