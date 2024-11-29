@@ -71,7 +71,7 @@ jobs:
 
       - name: 📄 PR summary
         id: summary
-        uses: nejcm/pr-summary-github-action@v1.1.0
+        uses: nejcm/pr-summary-github-action@v1.1.5
         with:
           ghToken: ${{ secrets.GH_TOKEN }}
           anthropicKey: ${{ secrets.ANTHROPIC_KEY }}
