@@ -17,7 +17,7 @@ def openai_summary(issues, prompt, key, org):
         temperature=0.6
     )
 
-    summary = response.choices[0].message.content
+    summary = response['choices'][0]['message']['content']
     if not summary:
         raise ValueError("Summary is null or empty.")
 

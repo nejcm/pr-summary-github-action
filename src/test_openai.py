@@ -17,17 +17,19 @@ class TestOpenAISummary(unittest.TestCase):
         key = 'FAKE_API_KEY'
         prompt_message = "Please summarize these commit messages:"
         commit_messages = "Initial commit\nAdded feature X"
+        org = "test_org"
         
-        summary = openai_summary(prompt_message, commit_messages, key)
+        summary = openai_summary(commit_messages, prompt_message, key, org)
         self.assertEqual(summary, 'This is a summary of the commit messages.')
 
     def test_openai_summary_empty_commit_messages(self):
         key = 'FAKE_API_KEY'
         prompt_message = "Please summarize these commit messages:"
         commit_messages = ""
+        org = "test_org"
         
         with self.assertRaises(ValueError) as context:
-            openai_summary(prompt_message, commit_messages, key)
+            openai_summary(commit_messages, prompt_message, key, org)
         self.assertEqual(str(context.exception), "Commit messages are empty!")
 
     @patch('openai_summary.OpenAI')
@@ -44,9 +46,10 @@ class TestOpenAISummary(unittest.TestCase):
         key = 'FAKE_API_KEY'
         prompt_message = "Please summarize these commit messages:"
         commit_messages = "Fix bug in user login"
+        org = "test_org"
         
         with self.assertRaises(ValueError) as context:
-            openai_summary(prompt_message, commit_messages, key)
+            openai_summary(commit_messages, prompt_message, key, org)
         self.assertEqual(str(context.exception), "Summary is null or empty.")
 
 if __name__ == '__main__':
