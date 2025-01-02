@@ -16,7 +16,7 @@ In the future we will allow more customization of the task/issue management tool
 
 > **! IMPORTANT**
 >
-> - To post to notion database please allow you API integration access to the database. [Read more](https://developers.notion.com/docs/create-a-notion-integration)
+> - To post to a Notion database, please allow your API integration access to the database. [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 > - One of the properties of the database needs to have an ID of `Title`.
 
 ![Notion example](notion.jpg)
@@ -46,6 +46,7 @@ In the future we will allow more customization of the task/issue management tool
 > - When checking out the code, make sure to use the `fetch-depth: 0` option. [Read more](https://github.com/actions/checkout?tab=readme-ov-file#fetch-all-history-for-all-tags-and-branches)
 > - To post to notion database please allow you API integration access to the database.
 >   [Read more](https://developers.notion.com/docs/create-a-notion-integration)
+
 ## Example usage
 
 Here's an example of how to use this action within a GitHub workflow:

@@ -16,8 +16,13 @@ def openai_summary(issues, prompt, key, org):
         max_tokens=4096,
         temperature=0.6
     )
+    
+    if not response['choices']:
+        raise ValueError("No response choices available")
+    if not response['choices'][0]:
+        raise ValueError("First choice is null")
 
-    summary = response['choices'][0]['message']['content']
+    summary = response['choices'][0]['message'].get('content', None)
     if not summary:
         raise ValueError("Summary is null or empty.")
 

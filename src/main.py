@@ -22,6 +22,7 @@ def main():
     VERSION = os.environ.get("VERSION")
     PROMPT = os.environ.get("PROMPT") or DEFAULT_PROMPT
     COMMITS = os.environ.get("COMMITS")
+    issues = None
     
     if(not is_empty(LINEAR_KEY)):
         issues = linear(LINEAR_VIEW_ID, 100, LINEAR_KEY)
