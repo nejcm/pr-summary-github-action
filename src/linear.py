@@ -92,8 +92,9 @@ def linear(custom_view_id, first=50, key = None):
             all_issues.extend(data['edges'])
             has_next_page = data['pageInfo']['hasNextPage']
             after = data['pageInfo']['endCursor']
+            print(f"Fetched: {len(data['edges'] or [])} linear issues")
         else:
-            print(f"Error: {response.status_code}")
+            print(f"Error fetching linear issues: {response.status_code}")
             raise Exception(f"Query failed with status code: {response.status_code}")
 
     return all_issues

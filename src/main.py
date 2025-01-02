@@ -4,11 +4,9 @@ from claude_summary import claude_summary
 from linear import linear
 from openai_summary import openai_summary
 from notion import notion
+from helpers import is_empty
 
 DEFAULT_PROMPT = 'Provide a detailed summary of the following commit messages in markdown format: '
-
-def is_empty(value):
-    return value is None or len(value) == 0
 
 def main():
     # Get env variables
@@ -20,15 +18,17 @@ def main():
     LINEAR_KEY = os.environ.get("LINEAR_KEY") 
     LINEAR_VIEW_ID = os.environ.get("LINEAR_VIEW_ID")
     CHANGELOG = os.environ.get("CHANGELOG")
+    PR_LINK = os.environ.get("PR_LINK")
     VERSION = os.environ.get("VERSION")
     PROMPT = os.environ.get("PROMPT") or DEFAULT_PROMPT
     COMMITS = os.environ.get("COMMITS")
     
     if(not is_empty(LINEAR_KEY)):
         issues = linear(LINEAR_VIEW_ID, 100, LINEAR_KEY)
-    else:
-        # fallback to commits
-        issues = COMMITS
+        
+    # fallback to commits
+    issues = issues or COMMITS
+    print(f"Using issues: {issues}")
 
     if(not is_empty(issues)):
         release_notes = None
@@ -38,7 +38,7 @@ def main():
             release_notes = openai_summary(issues, PROMPT, OPENAI_KEY, OPENAI_ORG)
         
         if(not is_empty(NOTION_KEY) and not is_empty(release_notes)):
-            notion(release_notes, issues, NOTION_KEY, NOTION_DB_ID, VERSION, CHANGELOG)
+            notion(release_notes, COMMITS, NOTION_KEY, NOTION_DB_ID, VERSION, CHANGELOG, PR_LINK)
 
         # Format the release_notes for multiline output
         if release_notes:
