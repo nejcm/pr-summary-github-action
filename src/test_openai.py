@@ -1,17 +1,24 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import Mock, patch, MagicMock
 from openai_summary import openai_summary
+
+def create_mock_response(content):
+    mock = Mock()
+    mock.choices = [
+        Mock(
+            message = Mock(
+                content = content
+            )
+        )
+    ]
+    return mock
 
 class TestOpenAISummary(unittest.TestCase):
     @patch('openai_summary.OpenAI')
     def test_openai_success(self, mock_openai):
         # Mock response from OpenAI
         mock_response = MagicMock()
-        mock_response.chat.completions.create.return_value = {
-            'choices': [
-                {'message': {'content': 'This is a summary of the commit messages.'}}
-            ]
-        }
+        mock_response.chat.completions.create.return_value = create_mock_response('This is a summary of the commit messages.')
         mock_openai.return_value = mock_response
         
         key = 'FAKE_API_KEY'
@@ -36,11 +43,7 @@ class TestOpenAISummary(unittest.TestCase):
     def test_openai_null_summary(self, mock_openai):
         # Mock response from OpenAI with an empty summary
         mock_response = MagicMock()
-        mock_response.chat.completions.create.return_value = {
-            'choices': [
-                {'message': {'content': ''}}
-            ]
-        }
+        mock_response.chat.completions.create.return_value = create_mock_response('')
         mock_openai.return_value = mock_response
         
         key = 'FAKE_API_KEY'
