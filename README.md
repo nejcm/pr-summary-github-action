@@ -116,6 +116,6 @@ jobs:
 
 - [ ] Add support for other task/issue management tools
 - [ ] Add support for other LLM providers
-  - [ ] different model selection
+  - [x] different model selection
   - [ ] DeepSeek
   - [ ] Qween
