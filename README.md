@@ -32,6 +32,7 @@ In the future we will allow more customization of the task/issue management tool
 - **`notionKey`** (optional): Notion API key.
 - **`notionDbId`** (optional): Notion database ID.
 - **`prompt`** (optional): Prompt to use for summarizing commits. Default: "Provide a detailed summary of the following commit messages in markdown format."
+- **`file`** (optional): Path to a text file containing information that will be used for summarization instead of commit messages or linear issues. This way you can fetch this information from any source, write it to a file, and pass it to the action.
 - **`changelog`** (optional): Link to the changelog.
 - **`prLink`** (optional): Link to the PR.
 - **`version`** (optional): Release version.
@@ -86,6 +87,7 @@ jobs:
           notionDbId: ${{ secrets.NOTION_DB_ID }}
           linearKey: ${{ secrets.LINEAR_KEY }}
           linearViewId: ${{ secrets.LINEAR_VIEW_ID }}
+          file: './path/to/your/file.txt'
           version: 'v1.0.0'
           changelog:
             '${{ github.server_url }}/${{ github.repository }}/blob/${{ github.head_ref }}/CHANGELOG.md'

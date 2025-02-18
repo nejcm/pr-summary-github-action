@@ -22,13 +22,14 @@ def main():
     VERSION = os.environ.get("VERSION")
     PROMPT = os.environ.get("PROMPT") or DEFAULT_PROMPT
     COMMITS = os.environ.get("COMMITS")
+    DATA = os.environ.get("DATA")
     issues = None
     
     if(not is_empty(LINEAR_KEY)):
         issues = linear(LINEAR_VIEW_ID, 100, LINEAR_KEY)
         
     # fallback to commits
-    issues = issues or COMMITS
+    issues = issues or DATA or COMMITS
     print(f"Using issues: {issues}")
 
     if(not is_empty(issues)):
