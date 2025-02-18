@@ -101,7 +101,3 @@ runs:
         PR_LINK: ${{ inputs.prLink }}
         VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
-
-    - name: 🖨️ Print summary
-      shell: bash
-      run: echo "${{ steps.summary.outputs.summary }}"
