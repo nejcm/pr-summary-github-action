@@ -26,7 +26,9 @@ In the future we will allow more customization of the task/issue management tool
 - **`ghToken`** (required): GitHub token for authentication.
 - **`openAiKey`** (optional): OpenAI API key. Ignored if empty.
 - **`openAiOrg`** (optional): OpenAI organization ID.
+- **`openAiModel`** (optional): OpenAI model to use (e.g. gpt-4o, gpt-3.5-turbo). Default: gpt-4o
 - **`anthropicKey`** (optional): Anthropic API key. Ignored if empty.
+- **`anthropicModel`** (optional): Anthropic model to use (e.g. claude-3-opus-20240229, claude-3-5-sonnet-20240620). Default: claude-3-5-sonnet-20240620.
 - **`linearKey`** (optional): Linear API key. Ignored if empty.
 - **`linearViewId`** (optional): Linear view ID. This allows you to specify a custom view for fetching issues that can be modified to your needs.
 - **`notionKey`** (optional): Notion API key.
@@ -112,6 +114,8 @@ jobs:
 
 ## TODO
 
-- [ ] Allow more customization of the task/issue management tool query parameters for fetching issues
 - [ ] Add support for other task/issue management tools
 - [ ] Add support for other LLM providers
+  - [ ] different model selection
+  - [ ] DeepSeek
+  - [ ] Qween

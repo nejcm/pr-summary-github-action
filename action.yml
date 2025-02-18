@@ -10,9 +10,17 @@ inputs:
   openAiOrg:
     description: "Open AI org id."
     required: false
+  openAiModel:
+    description: "OpenAI model to use (e.g. gpt-4o, gpt-3.5-turbo). Default: gpt-4o"
+    required: false
+    default: "gpt-4o"
   anthropicKey:
     description: "Anthropic API key. If empty it will be ignored."
     required: false
+  anthropicModel:
+    description: "Anthropic model to use (e.g. claude-3-opus-20240229, claude-3-5-sonnet-20240620). Default: claude-3-5-sonnet-20240620"
+    required: false
+    default: "claude-3-5-sonnet-20240620"
   linearKey:
     description: "Linear API key. If empty it will be ignored."
     required: false
@@ -98,7 +106,9 @@ runs:
       env:
         OPENAI_KEY: ${{ inputs.openAiKey }}
         OPENAI_ORG: ${{ inputs.openAiOrg }}
+        OPENAI_MODEL: ${{ inputs.openAiModel }}
         ANTHROPIC_KEY: ${{ inputs.anthropicKey }}
+        ANTHROPIC_MODEL: ${{ inputs.anthropicModel }}
         NOTION_KEY: ${{ inputs.notionKey }}
         LINEAR_KEY: ${{ inputs.linearKey }}
         LINEAR_VIEW_ID: ${{ inputs.linearViewId }}
