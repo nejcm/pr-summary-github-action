@@ -29,6 +29,9 @@ inputs:
     description: "Summary prompt"
     required: false
     default: "Provide a detailed summary of the following commit messages in markdown format:"
+  file:
+    description: "Optionally provide a path to a text file with information to summarize"
+    required: false
   changelog:
     description: "Link to the changelog. If empty it will be ignored."
     required: false
@@ -87,6 +90,9 @@ runs:
         else
           echo "commit_messages.txt file does not exist."
         fi
+        if [ ! -z "${{ inputs.file }}" ] && [ -f "${{ inputs.file }}" ]; then
+          export DATA=$(cat "${{ inputs.file }}")
+        fi
         python ${{ github.action_path }}/src/main.py
       shell: bash
       env:
@@ -101,7 +107,3 @@ runs:
         PR_LINK: ${{ inputs.prLink }}
         VERSION: ${{ inputs.version }}
         PROMPT: ${{ inputs.prompt }}
-
-    - name: 🖨️ Print summary
-      shell: bash
-      run: echo "${{ steps.summary.outputs.summary }}"

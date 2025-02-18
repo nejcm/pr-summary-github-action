@@ -16,7 +16,7 @@ In the future we will allow more customization of the task/issue management tool
 
 > **! IMPORTANT**
 >
-> - To post to notion database please allow you API integration access to the database. [Read more](https://developers.notion.com/docs/create-a-notion-integration)
+> - To post to a Notion database, please allow your API integration access to the database. [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 > - One of the properties of the database needs to have an ID of `Title`.
 
 ![Notion example](notion.jpg)
@@ -32,6 +32,7 @@ In the future we will allow more customization of the task/issue management tool
 - **`notionKey`** (optional): Notion API key.
 - **`notionDbId`** (optional): Notion database ID.
 - **`prompt`** (optional): Prompt to use for summarizing commits. Default: "Provide a detailed summary of the following commit messages in markdown format."
+- **`file`** (optional): Path to a text file containing information that will be used for summarization instead of commit messages or linear issues. This way you can fetch this information from any source, write it to a file, and pass it to the action.
 - **`changelog`** (optional): Link to the changelog.
 - **`prLink`** (optional): Link to the PR.
 - **`version`** (optional): Release version.
@@ -46,6 +47,7 @@ In the future we will allow more customization of the task/issue management tool
 > - When checking out the code, make sure to use the `fetch-depth: 0` option. [Read more](https://github.com/actions/checkout?tab=readme-ov-file#fetch-all-history-for-all-tags-and-branches)
 > - To post to notion database please allow you API integration access to the database.
 >   [Read more](https://developers.notion.com/docs/create-a-notion-integration)
+
 ## Example usage
 
 Here's an example of how to use this action within a GitHub workflow:
@@ -85,6 +87,7 @@ jobs:
           notionDbId: ${{ secrets.NOTION_DB_ID }}
           linearKey: ${{ secrets.LINEAR_KEY }}
           linearViewId: ${{ secrets.LINEAR_VIEW_ID }}
+          file: './path/to/your/file.txt'
           version: 'v1.0.0'
           changelog:
             '${{ github.server_url }}/${{ github.repository }}/blob/${{ github.head_ref }}/CHANGELOG.md'
