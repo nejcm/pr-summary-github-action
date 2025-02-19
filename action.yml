@@ -13,6 +13,24 @@ inputs:
   anthropicKey:
     description: "Anthropic API key. If empty it will be ignored."
     required: false
+  anthropicModel:
+    description: "Anthropic model to use (e.g. claude-3-opus-20240229, claude-3-5-sonnet-20240620). Default: claude-3-5-sonnet-20240620"
+    required: false
+    default: "claude-3-5-sonnet-20240620"
+  deepseekKey:
+    description: "Deepseek API key. If empty it will be ignored."
+    required: false
+  deepseekModel:
+    description: "Deepseek model to use (e.g. deepseek-chat, deepseek-reasoner). Default: deepseek-chat"
+    required: false
+    default: "deepseek-chat"
+  geminiKey:
+    description: "Gemini API key. If empty it will be ignored."
+    required: false
+  geminiModel:
+    description: "Gemini model to use (e.g. gemini-2.0-flash, gemini-1.5-pro). Default: gemini-2.0-flash"
+    required: false
+    default: "gemini-2.0-flash"
   linearKey:
     description: "Linear API key. If empty it will be ignored."
     required: false
@@ -99,6 +117,11 @@ runs:
         OPENAI_KEY: ${{ inputs.openAiKey }}
         OPENAI_ORG: ${{ inputs.openAiOrg }}
         ANTHROPIC_KEY: ${{ inputs.anthropicKey }}
+        ANTHROPIC_MODEL: ${{ inputs.anthropicModel }}
+        DEEPSEEK_KEY: ${{ inputs.deepseekKey }}
+        DEEPSEEK_MODEL: ${{ inputs.deepseekModel }}
+        GEMINI_KEY: ${{ inputs.geminiKey }}
+        GEMINI_MODEL: ${{ inputs.geminiModel }}
         NOTION_KEY: ${{ inputs.notionKey }}
         LINEAR_KEY: ${{ inputs.linearKey }}
         LINEAR_VIEW_ID: ${{ inputs.linearViewId }}

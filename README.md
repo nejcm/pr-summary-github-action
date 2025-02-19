@@ -27,6 +27,11 @@ In the future we will allow more customization of the task/issue management tool
 - **`openAiKey`** (optional): OpenAI API key. Ignored if empty.
 - **`openAiOrg`** (optional): OpenAI organization ID.
 - **`anthropicKey`** (optional): Anthropic API key. Ignored if empty.
+- **`anthropicModel`** (optional): Anthropic model to use (e.g. claude-3-opus-20240229, claude-3-5-sonnet-20240620). Default: claude-3-5-sonnet-20240620.
+- **`deepseekKey`** (optional): Deepseek API key. If empty it will be ignored.
+- **`deepseekModel`** (optional): Deepseek model to use (e.g. deepseek-chat, deepseek-reasoner). Default: deepseek-chat.
+- **`geminiKey`** (optional): Gemini API key. If empty it will be ignored.
+- **`geminiModel`** (optional): Gemini model to use (e.g. gemini-2.0-flash, gemini-1.5-pro). Default: gemini-2.0-flash.
 - **`linearKey`** (optional): Linear API key. Ignored if empty.
 - **`linearViewId`** (optional): Linear view ID.
 - **`notionKey`** (optional): Notion API key.
