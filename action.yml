@@ -21,6 +21,20 @@ inputs:
     description: "Anthropic model to use (e.g. claude-3-opus-20240229, claude-3-5-sonnet-20240620). Default: claude-3-5-sonnet-20240620"
     required: false
     default: "claude-3-5-sonnet-20240620"
+  deepseekKey:
+    description: "Deepseek API key. If empty it will be ignored."
+    required: false
+  deepseekModel:
+    description: "Deepseek model to use (e.g. deepseek-chat, deepseek-reasoner). Default: deepseek-chat"
+    required: false
+    default: "deepseek-chat"
+  geminiKey:
+    description: "Gemini API key. If empty it will be ignored."
+    required: false
+  geminiModel:
+    description: "Gemini model to use (e.g. gemini-2.0-flash, gemini-1.5-pro). Default: gemini-2.0-flash"
+    required: false
+    default: "gemini-2.0-flash"
   linearKey:
     description: "Linear API key. If empty it will be ignored."
     required: false
@@ -87,7 +101,7 @@ runs:
           pip install -r ${{ github.action_path }}/requirements.txt
         else
           echo "requirements.txt not found, installing dependencies directly"
-          pip install 'requests==2.32.3' 'anthropic==0.40.0' 'openai==1.55.3' 'nltk==3.9.1' 'markdown-it-py==3.0.0'
+          pip install 'requests==2.32.3' 'anthropic==0.40.0' 'openai==1.55.3' 'nltk==3.9.1' 'markdown-it-py==3.0.0' 'google-genai==1.2.0'
         fi
 
     - name: 🤖 Run
@@ -109,6 +123,10 @@ runs:
         OPENAI_MODEL: ${{ inputs.openAiModel }}
         ANTHROPIC_KEY: ${{ inputs.anthropicKey }}
         ANTHROPIC_MODEL: ${{ inputs.anthropicModel }}
+        DEEPSEEK_KEY: ${{ inputs.deepseekKey }}
+        DEEPSEEK_MODEL: ${{ inputs.deepseekModel }}
+        GEMINI_KEY: ${{ inputs.geminiKey }}
+        GEMINI_MODEL: ${{ inputs.geminiModel }}
         NOTION_KEY: ${{ inputs.notionKey }}
         LINEAR_KEY: ${{ inputs.linearKey }}
         LINEAR_VIEW_ID: ${{ inputs.linearViewId }}

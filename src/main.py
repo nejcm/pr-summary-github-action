@@ -3,6 +3,8 @@ import os
 from claude_summary import claude_summary
 from linear import linear
 from openai_summary import openai_summary
+from deepseek_summary import deepseek_summary
+from gemini_summary import gemini_summary
 from notion import notion
 from helpers import is_empty
 
@@ -15,6 +17,10 @@ def main():
     OPENAI_MODEL = os.environ.get("OPENAI_MODEL")
     ANTHROPIC_KEY = os.environ.get("ANTHROPIC_KEY")
     ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL")
+    DEEPSEEK_KEY = os.environ.get("DEEPSEEK_KEY")
+    DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL")
+    GEMINI_KEY = os.environ.get("GEMINI_KEY")
+    GEMINI_MODEL = os.environ.get("GEMINI_MODEL")
     NOTION_KEY = os.environ.get("NOTION_KEY")
     NOTION_DB_ID = os.environ.get("NOTION_DB_ID")
     LINEAR_KEY = os.environ.get("LINEAR_KEY") 
@@ -40,6 +46,10 @@ def main():
             release_notes = claude_summary(issues, PROMPT, ANTHROPIC_KEY, ANTHROPIC_MODEL)
         elif(not is_empty(OPENAI_KEY) and not is_empty(OPENAI_ORG)):
             release_notes = openai_summary(issues, PROMPT, OPENAI_KEY, OPENAI_ORG, OPENAI_MODEL)
+        elif(not is_empty(DEEPSEEK_KEY)):
+            release_notes = deepseek_summary(issues, PROMPT, DEEPSEEK_KEY, DEEPSEEK_MODEL)
+        elif(not is_empty(GEMINI_KEY)):
+            release_notes = gemini_summary(issues, PROMPT, GEMINI_KEY, GEMINI_MODEL)
         
         if(not is_empty(NOTION_KEY) and not is_empty(release_notes)):
             notion(release_notes, COMMITS, NOTION_KEY, NOTION_DB_ID, VERSION, CHANGELOG, PR_LINK)
