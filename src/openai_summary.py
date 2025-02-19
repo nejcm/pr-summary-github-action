@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-def openai_summary(issues, prompt, key, org):
+def openai_summary(issues, prompt, key, org, model="gpt-4o"):
     if not issues:
         raise ValueError("Commit messages are empty!")
       
@@ -11,7 +11,7 @@ def openai_summary(issues, prompt, key, org):
 
     prompt = f"{prompt} {issues}"
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model=model,
         messages=[{"role": "user", "content": prompt}],
         max_tokens=4096,
         temperature=0.6

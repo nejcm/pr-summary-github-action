@@ -12,7 +12,9 @@ def main():
     # Get env variables
     OPENAI_KEY = os.environ.get("OPENAI_KEY")
     OPENAI_ORG = os.environ.get("OPENAI_ORG")
+    OPENAI_MODEL = os.environ.get("OPENAI_MODEL")
     ANTHROPIC_KEY = os.environ.get("ANTHROPIC_KEY")
+    ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL")
     NOTION_KEY = os.environ.get("NOTION_KEY")
     NOTION_DB_ID = os.environ.get("NOTION_DB_ID")
     LINEAR_KEY = os.environ.get("LINEAR_KEY") 
@@ -35,9 +37,9 @@ def main():
     if(not is_empty(issues)):
         release_notes = None
         if(not is_empty(ANTHROPIC_KEY)):
-            release_notes = claude_summary(issues, PROMPT, ANTHROPIC_KEY)
+            release_notes = claude_summary(issues, PROMPT, ANTHROPIC_KEY, ANTHROPIC_MODEL)
         elif(not is_empty(OPENAI_KEY) and not is_empty(OPENAI_ORG)):
-            release_notes = openai_summary(issues, PROMPT, OPENAI_KEY, OPENAI_ORG)
+            release_notes = openai_summary(issues, PROMPT, OPENAI_KEY, OPENAI_ORG, OPENAI_MODEL)
         
         if(not is_empty(NOTION_KEY) and not is_empty(release_notes)):
             notion(release_notes, COMMITS, NOTION_KEY, NOTION_DB_ID, VERSION, CHANGELOG, PR_LINK)

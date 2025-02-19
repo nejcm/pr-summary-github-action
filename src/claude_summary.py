@@ -1,6 +1,6 @@
 import anthropic
 
-def claude_summary(issues, prompt, key):
+def claude_summary(issues, prompt, key, model="claude-3-5-sonnet-20240620"):
     client = anthropic.Anthropic(
       api_key=key,
     )
@@ -9,7 +9,7 @@ def claude_summary(issues, prompt, key):
       {issues}
     """
     message = client.messages.create(
-        model="claude-3-5-sonnet-20240620",
+        model=model,
         max_tokens=5612,
         temperature=0.6,
         # system=system,
