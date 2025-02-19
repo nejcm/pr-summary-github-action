@@ -25,8 +25,8 @@ jobs:
         id: summary
         uses: ./
         with:
-          deepseekKey: ${{ secrets.DEEPSEEK_KEY }}
-          #geminiKey: ${{ secrets.GEMINI_KEY }}
+          #deepseekKey: ${{ secrets.DEEPSEEK_KEY }}
+          geminiKey: ${{ secrets.GEMINI_KEY }}
           #openAiKey: ${{ secrets.OPENAI_KEY }}
           #openAiOrg: ${{ secrets.OPENAI_ORG }}
           #anthropicKey: ${{ secrets.ANTHROPIC_KEY }}

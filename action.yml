@@ -10,6 +10,10 @@ inputs:
   openAiOrg:
     description: "Open AI org id."
     required: false
+  openAiModel:
+    description: "OpenAI model to use (e.g. gpt-4o, gpt-3.5-turbo). Default: gpt-4o"
+    required: false
+    default: "gpt-4o"
   anthropicKey:
     description: "Anthropic API key. If empty it will be ignored."
     required: false
@@ -116,6 +120,7 @@ runs:
       env:
         OPENAI_KEY: ${{ inputs.openAiKey }}
         OPENAI_ORG: ${{ inputs.openAiOrg }}
+        OPENAI_MODEL: ${{ inputs.openAiModel }}
         ANTHROPIC_KEY: ${{ inputs.anthropicKey }}
         ANTHROPIC_MODEL: ${{ inputs.anthropicModel }}
         DEEPSEEK_KEY: ${{ inputs.deepseekKey }}
