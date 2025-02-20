@@ -13,13 +13,12 @@ Thank you for your interest in contributing to pr-summary-github-action! This do
 
 ## Development Setup
 
-Install Python 3.12 or higher
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
+1. Install Python 3.10 or higher
+2. Install [uv](https://github.com/astral-sh/uv) package manager
+3. Install dependencies:
+   ```bash
+      uv sync --all-extras --dev
+   ```
 
 ## Making Changes
 
@@ -54,7 +53,7 @@ Test your changes by creating a workflow in your repository that uses your fork 
 Run unit tests:
 
 ```bash
-python -m unittest discover -s src
+uv run -m unittest discover -s src
 ```
 
 ## Code Style
