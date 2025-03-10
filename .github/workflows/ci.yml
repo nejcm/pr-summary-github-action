@@ -26,10 +26,10 @@ jobs:
         uses: ./
         with:
           #deepseekKey: ${{ secrets.DEEPSEEK_KEY }}
-          geminiKey: ${{ secrets.GEMINI_KEY }}
+          #geminiKey: ${{ secrets.GEMINI_KEY }}
           #openAiKey: ${{ secrets.OPENAI_KEY }}
           #openAiOrg: ${{ secrets.OPENAI_ORG }}
-          #anthropicKey: ${{ secrets.ANTHROPIC_KEY }}
+          anthropicKey: ${{ secrets.ANTHROPIC_KEY }}
           #notionKey: ${{ secrets.NOTION_KEY }}
           #notionDbId: ${{ secrets.NOTION_DB_ID }}
           #linearKey: ${{ secrets.LINEAR_KEY }}
