@@ -102,11 +102,11 @@ runs:
     - name: 💿 Install python
       uses: actions/setup-python@v5
       with:
-        python-version-file: "${{ github.action_path }}/pyproject.toml"
+        python-version-file: "pyproject.toml"
 
     - name: 🦺 Install python packages
       shell: bash
-      run: uv sync --all-extras --dev --directory '${{ github.action_path }}'
+      run: uv sync --all-extras --dev
 
     - name: 🤖 Run
       id: summary
@@ -119,7 +119,7 @@ runs:
         if [ ! -z "${{ inputs.file }}" ] && [ -f "${{ inputs.file }}" ]; then
           export DATA=$(cat "${{ inputs.file }}")
         fi
-        uv run ${{ github.action_path }}/src/main.py
+        uv run src/main.py
       shell: bash
       env:
         OPENAI_KEY: ${{ inputs.openAiKey }}
