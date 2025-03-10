@@ -39,9 +39,9 @@ In the future we will allow more customization of the task/issue management tool
 - **`notionDbId`** (optional): Notion database ID.
 - **`prompt`** (optional): Prompt to use for summarizing commits. Default: "Provide a detailed summary of the following commit messages in markdown format."
 - **`file`** (optional): Path to a text file containing information that will be used for summarization instead of commit messages or linear issues. This way you can fetch this information from any source, write it to a file, and pass it to the action.
-- **`changelog`** (optional): Link to the changelog.
-- **`prLink`** (optional): Link to the PR.
-- **`version`** (optional): Release version.
+- **`changelog`** (optional): Link to the changelog. Will be added to the notion document.
+- **`prLink`** (optional): Link to the PR. Will be added to the notion document.
+- **`version`** (optional): Release version. Will be added to the notes.
 
 ## Outputs
 
@@ -120,7 +120,7 @@ jobs:
 
 - [ ] Add support for other task/issue management tools
 - [ ] Add support for other LLM providers
-  - [x] different model selection
+  - [x] Allow different model selection
   - [x] DeepSeek
   - [x] Gemini
   - [ ] Qween
