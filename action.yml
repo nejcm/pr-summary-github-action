@@ -102,7 +102,7 @@ runs:
 
     - name: 🦺 Install python packages
       shell: bash
-      run: uv sync --all-extras --dev
+      run: uv sync --all-extras --dev --directory '${{ github.action_path }}'
 
     - name: 🤖 Run
       id: summary
