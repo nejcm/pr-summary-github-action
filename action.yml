@@ -93,12 +93,12 @@ runs:
       with:
         version: "0.6.2"
         enable-cache: true
-        cache-dependency-glob: "uv.lock"
+        cache-dependency-glob: "${{ github.action_path }}/uv.lock"
 
     - name: 💿 Install python
       uses: actions/setup-python@v5
       with:
-        python-version-file: "${{ github.action_path }}/.python-version"
+        python-version-file: "${{ github.action_path }}/pyproject.toml"
 
     - name: 🦺 Install python packages
       shell: bash
