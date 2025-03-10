@@ -1,7 +1,7 @@
-import anthropic
+from anthropic import Anthropic
 
 def claude_summary(issues, prompt, key, model="claude-3-5-sonnet-20240620"):
-    client = anthropic.Anthropic(
+    client = Anthropic(
       api_key=key,
     )
     fullPrompt = f"""
