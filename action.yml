@@ -93,7 +93,7 @@ runs:
       with:
         version: "0.6.2"
         enable-cache: true
-        cache-dependency-glob: "${{ github.action_path }}**/uv.lock"
+        cache-dependency-glob: "**/uv.lock"
 
     - run: echo ${{ github.action_path }}
       shell: bash
