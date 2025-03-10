@@ -74,7 +74,6 @@ branding:
 
 runs:
   using: "composite"
-
   steps:
     - name: 📄 Get PR commit messages
       shell: bash
@@ -91,25 +90,26 @@ runs:
 
     - name: 💿 Install uv
       uses: astral-sh/setup-uv@v5
-      working-directory: ${{ github.action_path }}
       with:
         version: "0.6.2"
         enable-cache: true
+        cache-dependency-glob: "**/uv.lock"
+
+    - name: 📁 Working directory
+      run: cd ${{github.action_path}}
+      shell: bash
 
     - name: 💿 Install python
       uses: actions/setup-python@v5
-      working-directory: ${{ github.action_path }}
       with:
-        python-version-file: "pyproject.toml"
+        python-version-file: "${{ github.action_path }}/pyproject.toml"
 
     - name: 🦺 Install python packages
       shell: bash
-      working-directory: ${{ github.action_path }}
-      run: uv sync --all-extras --dev
+      run: uv sync --all-extras --dev --directory '${{ github.action_path }}'
 
     - name: 🤖 Run
       id: summary
-      working-directory: ${{ github.action_path }}
       run: |
         if [ -f commit_messages.txt ]; then
           export COMMITS=$(cat commit_messages.txt)
@@ -119,7 +119,7 @@ runs:
         if [ ! -z "${{ inputs.file }}" ] && [ -f "${{ inputs.file }}" ]; then
           export DATA=$(cat "${{ inputs.file }}")
         fi
-        uv run src/main.py
+        uv run ${{ github.action_path }}/src/main.py
       shell: bash
       env:
         OPENAI_KEY: ${{ inputs.openAiKey }}
