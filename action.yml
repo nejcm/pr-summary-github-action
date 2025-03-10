@@ -98,7 +98,7 @@ runs:
     - name: 💿 Install python
       uses: actions/setup-python@v5
       with:
-        python-version-file: ".python-version"
+        python-version-file: "${{ github.action_path }}/.python-version"
 
     - name: 🦺 Install python packages
       shell: bash
