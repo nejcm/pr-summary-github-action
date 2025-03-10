@@ -20,6 +20,7 @@ In the future we will allow more customization of the task/issue management tool
 > - One of the properties of the database needs to have an ID of `Title`.
 
 ![Notion example](notion.jpg)
+![Notion links example](notion-links.jpg)
 
 ## Inputs
 
