@@ -98,6 +98,7 @@ runs:
       run: |
         python -m pip install --upgrade pip
         if [ -f "${{ github.action_path }}/pyproject.toml" ]; then
+          echo "Installing dependencies from pyproject.toml"
           pip install ${{ github.action_path }}
         else
           echo "pyproject.toml not found, installing dependencies directly"
