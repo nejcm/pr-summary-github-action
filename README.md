@@ -19,9 +19,6 @@ In the future we will allow more customization of the task/issue management tool
 > - To post to a Notion database, please allow your API integration access to the database. [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 > - One of the properties of the database needs to have an ID of `Title`.
 
-![Notion example](notion.jpg)
-![Notion links example](notion-links.jpg)
-
 ## Inputs
 
 - **`ghToken`** (required): GitHub token for authentication.
@@ -113,9 +110,16 @@ jobs:
             ${{ steps.summary.outputs.summary }}
 ```
 
-## Example output
+## Examples
 
+**Summary example**
 ![Summary](summary.jpg)
+
+**Notion example**
+![Notion example](notion.jpg)
+
+**Links example**
+![Notion links example](notion-links.jpg)
 
 ## TODO
 
