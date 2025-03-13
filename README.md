@@ -52,7 +52,7 @@ In the future we will allow more customization of the task/issue management tool
 > - To post to notion database please allow you API integration access to the database.
 >   [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 
-## Example usage
+## Usage
 
 Here's an example of how to use this action within a GitHub workflow:
 
@@ -112,13 +112,16 @@ jobs:
 
 ## Examples
 
-**Summary example**
+**Summary example**  
+
 ![Summary](summary.jpg)
 
-**Notion example**
+**Notion example**  
+
 ![Notion example](notion.jpg)
 
-**Links example**
+**Links example**  
+
 ![Notion links example](notion-links.jpg)
 
 ## TODO
