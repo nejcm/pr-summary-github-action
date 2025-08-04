@@ -14,7 +14,7 @@ In the future we will allow more customization of the task/issue management tool
 
 ## Notion
 
-> **! IMPORTANT**
+> **IMPORTANT**
 >
 > - To post to a Notion database, please allow your API integration access to the database. [Read more](https://developers.notion.com/docs/create-a-notion-integration)
 > - One of the properties of the database needs to have an ID of `Title`.
