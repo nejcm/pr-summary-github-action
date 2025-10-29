@@ -18,9 +18,9 @@ inputs:
     description: "Anthropic API key. If empty it will be ignored."
     required: false
   anthropicModel:
-    description: "Anthropic model to use (e.g. claude-3-opus-20240229, claude-3-5-sonnet-20240620). Default: claude-3-5-sonnet-20240620"
+    description: "Anthropic model to use (e.g. claude-sonnet-4-5-20250929). Default: claude-sonnet-4-5-20250929"
     required: false
-    default: "claude-3-5-sonnet-20240620"
+    default: "claude-sonnet-4-5-20250929"
   deepseekKey:
     description: "Deepseek API key. If empty it will be ignored."
     required: false

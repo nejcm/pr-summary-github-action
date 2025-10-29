@@ -26,7 +26,7 @@ In the future we will allow more customization of the task/issue management tool
 - **`openAiOrg`** (optional): OpenAI organization ID.
 - **`openAiModel`** (optional): OpenAI model to use (e.g. gpt-4o, gpt-3.5-turbo). Default: gpt-4o
 - **`anthropicKey`** (optional): Anthropic API key. Ignored if empty.
-- **`anthropicModel`** (optional): Anthropic model to use (e.g. claude-3-opus-20240229, claude-3-5-sonnet-20240620). Default: claude-3-5-sonnet-20240620.
+- **`anthropicModel`** (optional): Anthropic model to use (e.g. claude-sonnet-4-5-20250929). Default: claude-sonnet-4-5-20250929.
 - **`deepseekKey`** (optional): Deepseek API key. If empty it will be ignored.
 - **`deepseekModel`** (optional): Deepseek model to use (e.g. deepseek-chat, deepseek-reasoner). Default: deepseek-chat.
 - **`geminiKey`** (optional): Gemini API key. If empty it will be ignored.
@@ -112,15 +112,15 @@ jobs:
 
 ## Examples
 
-**Summary example**  
+**Summary example**
 
 ![Summary](summary.jpg)
 
-**Notion example**  
+**Notion example**
 
 ![Notion example](notion.jpg)
 
-**Links example**  
+**Links example**
 
 ![Notion links example](notion-links.jpg)
 

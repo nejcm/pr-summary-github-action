@@ -1,6 +1,6 @@
 from anthropic import Anthropic
 
-def claude_summary(issues, prompt, key, model="claude-3-5-sonnet-20240620"):
+def claude_summary(issues, prompt, key, model="claude-sonnet-4-5-20250929"):
     client = Anthropic(
       api_key=key,
     )
